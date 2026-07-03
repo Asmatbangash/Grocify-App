@@ -1,6 +1,13 @@
+import "@/global.css";
 import { ClerkProvider } from "@clerk/expo";
 import { tokenCache } from "@clerk/expo/token-cache";
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from "@react-navigation/native";
 import { Slot } from "expo-router";
+import { useColorScheme } from "react-native";
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
@@ -9,9 +16,14 @@ if (!publishableKey) {
 }
 
 export default function RootLayout() {
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === "dark" ? DarkTheme : DefaultTheme;
+
   return (
     <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
-      <Slot />
+      <ThemeProvider value={theme}>
+        <Slot />
+      </ThemeProvider>
     </ClerkProvider>
   );
 }
