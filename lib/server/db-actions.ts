@@ -60,7 +60,16 @@ export const updateGroceryItemQuantity = async (
 };
 
 export const deleteGroceryItem = async (id: string) => {
-  await db.delete(groceryItems).where(eq(groceryItems.id, id));
+  const result = await db
+    .delete(groceryItems)
+    .where(eq(groceryItems.id, id))
+    .returning();
+
+  if (result.length === 0) {
+    throw new Error(`Item with id ${id} not found`);
+  }
+
+  return result[0];
 };
 
 export const clearPurchasedItem = async () => {

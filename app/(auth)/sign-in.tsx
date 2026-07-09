@@ -9,43 +9,46 @@ export default function SignInScreen() {
   const isLoading = isGoogleClicked;
 
   return (
-    <>
-      {/* decorative elements */}
-      <View className="absolute -left-16 top-12 h-56 w-56 rounded-full bg-primary/80 dark:bg-background/40" />
-      <View className="absolute -right-18.5 top-40 h-72 w-72 rounded-full bg-primary/70 dark:bg-background/35" />
-      <View className="flex-1 items-center justify-center">
-        <Text className="text-white text-lg font-bold mb-4">GROCIFY</Text>
-        <Text className="text-white text-base">Plan smarter. Shop faster.</Text>
+    <View className="theme-screen-shell">
+      <View className="absolute -left-16 top-12 h-56 w-56 rounded-full bg-primary/20" />
+      <View className="absolute -right-18.5 top-40 h-72 w-72 rounded-full bg-primary/10" />
+      <View className="flex-1 items-center justify-center px-6">
+        <Text className="theme-text-primary mb-4 text-lg font-bold">
+          GROCIFY
+        </Text>
+        <Text className="theme-text-muted text-base">
+          Plan smarter. Shop faster.
+        </Text>
         <View>
           <Image
             source={require("@/assets/images/auth.png")}
-            className="w-52 h-52"
+            className="h-52 w-52"
           />
         </View>
       </View>
 
-      <View className="flex-1 items-center justify-center">
+      <View className="flex-1 items-center justify-center px-6">
         <Pressable
-          className={`mb-3 h-14 flex-row items-center rounded-2xl border border-border bg-card px-4 active:opacity-90 ${
+          className={`theme-auth-card mb-3 h-14 flex-row items-center active:opacity-90 ${
             loading ? "opacity-70" : ""
           }`}
           disabled={isLoading}
           onPress={() => handleSocialAuth("oauth_google")}
         >
-          <View className="h-8 w-8 items-center justify-center rounded-full bg-white border-amber-50 border">
+          <View className="h-8 w-8 items-center justify-center rounded-full border border-border bg-white">
             <Image
               source={require("@/assets/images/google.png")}
               style={{ width: 20, height: 20 }}
             />
           </View>
 
-          <Text className="ml-3 flex-1 text-lg font-semibold text-white">
+          <Text className="theme-text-primary ml-3 flex-1 text-lg font-semibold">
             {isGoogleClicked ? "Connecting Google..." : "Continue with Google"}
           </Text>
 
           <FontAwesome name="angle-right" size={18} color="#5f6e66" />
         </Pressable>
       </View>
-    </>
+    </View>
   );
 }

@@ -6,8 +6,8 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { Slot } from "expo-router";
-import { useColorScheme } from "react-native";
+import { Stack } from "expo-router";
+import { useColorScheme } from "nativewind";
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
@@ -16,13 +16,13 @@ if (!publishableKey) {
 }
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const theme = colorScheme === "dark" ? DarkTheme : DefaultTheme;
 
   return (
     <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
       <ThemeProvider value={theme}>
-        <Slot />
+        <Stack screenOptions={{ headerShown: false }} />
       </ThemeProvider>
     </ClerkProvider>
   );
