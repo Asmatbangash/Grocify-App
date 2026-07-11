@@ -5,19 +5,27 @@ import TabScreenBackground from "@/components/TabScreenBackground";
 import { useGroceryStore } from "@/store/grocery-store";
 import React from "react";
 import { FlatList, Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Index = () => {
   const { items } = useGroceryStore();
 
   const pendingItems = items.filter((item) => !item.purchased);
 
+  const insets = useSafeAreaInsets();
+
   return (
     <FlatList
+      style={{ flex: 1 }}
       className="theme-screen-shell"
       data={pendingItems}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => <PendingItems item={item} />}
-      contentContainerStyle={{ padding: 20, gap: 14 }}
+      contentContainerStyle={{
+        padding: 20,
+        gap: 14,
+        paddingBottom: insets.bottom + 100,
+      }}
       contentInsetAdjustmentBehavior="automatic"
       ListHeaderComponent={
         <View style={{ gap: 14, paddingTop: 20 }}>

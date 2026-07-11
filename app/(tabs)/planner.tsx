@@ -5,9 +5,11 @@ import { useGroceryStore } from "@/store/grocery-store";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Planner = () => {
   const { items } = useGroceryStore();
+  const insets = useSafeAreaInsets();
 
   const pendingItemsCount = items.filter((item) => !item.purchased);
   const highPriorityItemsCount = items.filter(
@@ -20,8 +22,13 @@ const Planner = () => {
 
   return (
     <KeyboardAwareScrollView
+      style={{ flex: 1 }}
       bottomOffset={80}
-      contentContainerStyle={{ padding: 20, gap: 14 }}
+      contentContainerStyle={{
+        padding: 20,
+        gap: 14,
+        paddingBottom: insets.bottom + 100,
+      }}
       showsVerticalScrollIndicator={false}
       className="flex-1 bg-background py-4"
       contentInsetAdjustmentBehavior="automatic"
